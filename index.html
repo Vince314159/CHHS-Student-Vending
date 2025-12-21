@@ -1,0 +1,1957 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="CHHS Student-Run Vending — Colleyville Heritage High School. Student-run vending + micro markets. We handle everything end-to-end." />
+  <meta name="theme-color" content="#C8102E" />
+  <title>CHHS Student-Run Vending | Colleyville Heritage High School</title>
+
+  <!-- Favicon (CHHS-style paw, NOT all red) -->
+  <link rel="icon" type="image/svg+xml"
+    href='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cg%20fill%3D%22%2311151B%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%222%22%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2220%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2216.5%22%20r%3D%226.2%22/%3E%3Ccircle%20cx%3D%2239%22%20cy%3D%2216.5%22%20r%3D%226.2%22/%3E%3Ccircle%20cx%3D%2251%22%20cy%3D%2220%22%20r%3D%226%22/%3E%3Cpath%20d%3D%22M20%2035%20C20%2029%2026%2026%2032%2026%20C38%2026%2044%2029%2044%2035%20C44%2046%2039%2056%2032%2056%20C25%2056%2020%2046%2020%2035%20Z%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3Cg%20fill%3D%22%23C8102E%22%20opacity%3D%220.95%22%3E%3Cpath%20d%3D%22M12%2010%20l4%206%20l-6%20-2%20Z%22/%3E%3Cpath%20d%3D%22M24%207%20l4.5%206.5%20l-6.5%20-2.2%20Z%22/%3E%3Cpath%20d%3D%22M35%207%20l4.5%206.5%20l-6.5%20-2.2%20Z%22/%3E%3Cpath%20d%3D%22M48%2010%20l4%206%20l-6%20-2%20Z%22/%3E%3C/g%3E%3C/svg%3E' />
+
+  <style>
+    :root{
+      --red:#C8102E;     /* Panther Red */
+      --black:#0B0D10;   /* Panther Black */
+      --white:#FFFFFF;
+
+      --bg:#07090C;
+      --card:#0D1117;
+      --card2:#0B0F14;
+      --text:#EAF0F8;
+      --muted:#B3C0D4;
+      --line:rgba(255,255,255,.10);
+
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --shadow2: 0 12px 30px rgba(0,0,0,.35);
+      --shadowRed: 0 18px 46px rgba(200,16,46,.18);
+      --radius: 18px;
+
+      --max: 1120px;
+      --navH: 72px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(200,16,46,.20), transparent 60%),
+        radial-gradient(900px 500px at 85% 25%, rgba(255,255,255,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg), #05070A 65%, #04060A);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .section{padding:84px 0; position:relative; overflow:hidden;}
+    .section h2{
+      font-size: clamp(26px, 3vw, 40px);
+      margin:0 0 10px;
+      letter-spacing:-.02em;
+      display:inline-block;
+      position:relative;
+    }
+    .section h2::after{
+      content:"";
+      display:block;
+      height:3px;
+      width:72px;
+      margin-top:10px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(200,16,46,.95), rgba(200,16,46,.35), transparent);
+      box-shadow: 0 10px 24px rgba(200,16,46,.16);
+    }
+    .section p.lead{
+      color:var(--muted);
+      margin:0 0 26px;
+      max-width: 70ch;
+      font-size: clamp(15px, 1.2vw, 17px);
+    }
+
+    /* Accessibility */
+    .skip{
+      position:absolute; left:-999px; top:8px;
+      background:var(--white); color:var(--black);
+      padding:10px 12px; border-radius:12px;
+      z-index:9999;
+    }
+    .skip:focus{left:10px}
+
+    /* Nav */
+    header{
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter: blur(14px);
+      background: rgba(7,9,12,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      height: var(--navH);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:800;
+      letter-spacing:.02em;
+      white-space:nowrap;
+    }
+
+    /* CHHS-style paw badge (logo) */
+    .brand-badge{
+      width:38px; height:38px; border-radius:14px;
+      border:1px solid rgba(200,16,46,.34);
+      background:
+        radial-gradient(20px 20px at 30% 25%, rgba(255,255,255,.10), transparent 65%),
+        rgba(255,255,255,.04);
+      box-shadow: 0 14px 32px rgba(200,16,46,.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .brand-badge svg{
+      width:24px; height:24px;
+      display:block;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
+    }
+    .brand:hover .brand-badge{
+      box-shadow: 0 18px 38px rgba(200,16,46,.18);
+      border-color: rgba(200,16,46,.52);
+    }
+
+    nav ul{
+      list-style:none; margin:0; padding:0;
+      display:flex; gap:14px; align-items:center;
+    }
+    nav a{
+      color:rgba(234,240,248,.88);
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:12px;
+      transition: .2s ease;
+    }
+    nav a:hover{
+      background: rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.10);
+    }
+
+    /* Only ONE CTA in the navbar */
+    .nav-cta{
+      display:flex; gap:10px; align-items:center;
+    }
+
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      display:inline-flex; align-items:center; gap:10px;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.12);
+    }
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(200,16,46,1), rgba(200,16,46,.72));
+      border-color: rgba(200,16,46,.62);
+      box-shadow: 0 16px 38px rgba(200,16,46,.22);
+    }
+    .btn-primary:hover{
+      background: linear-gradient(135deg, rgba(220,20,60,1), rgba(200,16,46,.78));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 44px rgba(200,16,46,.26);
+    }
+
+    .hamburger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+    }
+    .hamburger svg{opacity:.9}
+
+    /* ✅ FIX YOU REQUESTED:
+       Hide the mobile menu on desktop by default so the duplicate line never shows */
+    .mobile-menu{
+      display:none;
+      padding: 10px 0 18px;
+    }
+    .mobile-menu.open{display:block;}
+    .mobile-menu a{
+      display:block;
+      padding: 12px 10px;
+      border-radius: 14px;
+      color: rgba(234,240,248,.9);
+    }
+    .mobile-menu a:hover{background: rgba(255,255,255,.06)}
+
+    /* HERO */
+    .hero{
+      padding: 52px 0 30px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 26px;
+      align-items:center;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 999px;
+      color: rgba(234,240,248,.92);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 14px;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.10);
+    }
+    .kicker .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--red);
+      box-shadow: 0 0 0 6px rgba(200,16,46,.16);
+    }
+    .hero h1{
+      font-size: clamp(34px, 4.3vw, 58px);
+      line-height: 1.03;
+      margin:0 0 14px;
+      letter-spacing:-.03em;
+    }
+    .hero p{
+      color: var(--muted);
+      margin:0 0 20px;
+      font-size: clamp(15px, 1.25vw, 18px);
+      max-width: 62ch;
+    }
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px}
+    .hero-meta{
+      display:flex; gap:14px; flex-wrap:wrap;
+      margin-top: 18px;
+      color: rgba(234,240,248,.82);
+      font-size: 13px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.08);
+    }
+
+    /* Panther accents */
+    .claw{
+      position:absolute; right:-120px; top:-80px;
+      width: 520px; height: 520px;
+      opacity:.22;
+      transform: rotate(14deg);
+      pointer-events:none;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,.4));
+    }
+    .speedlines{
+      position:absolute;
+      left:-140px;
+      top: 90px;
+      width: 620px;
+      height: 260px;
+      opacity:.12;
+      pointer-events:none;
+      transform: rotate(-8deg);
+      filter: drop-shadow(0 18px 44px rgba(200,16,46,.12));
+    }
+    .glow{
+      position:absolute; left:-160px; bottom:-220px;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(200,16,46,.18), transparent 62%);
+      pointer-events:none;
+      filter: blur(2px);
+    }
+
+    /* Canva-style subtle accents (dots + wave), limited to Hero + Benefits + Contact */
+    .decor-dots{
+      position:absolute;
+      width: 220px;
+      height: 160px;
+      opacity: .10;
+      pointer-events:none;
+      filter: drop-shadow(0 18px 40px rgba(200,16,46,.10));
+    }
+    .decor-dots svg{width:100%; height:100%}
+    .decor-dots.top-left{left:16px; top:22px}
+    .decor-dots.bottom-right{right:10px; bottom:10px; transform: rotate(10deg)}
+    .decor-wave{
+      position:absolute;
+      width: 520px;
+      height: 120px;
+      opacity: .08;
+      pointer-events:none;
+    }
+    .decor-wave.center{
+      left: 50%;
+      transform: translateX(-50%);
+      top: 34px;
+    }
+    .decor-wave.bottom{
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -22px;
+    }
+
+    /* Section background “panther texture” (very faint) */
+    .panther-texture{
+      position:absolute;
+      inset:-40px -60px auto auto;
+      width: 520px;
+      height: 520px;
+      opacity:.06;
+      pointer-events:none;
+      transform: rotate(18deg);
+      filter: blur(.2px);
+    }
+    .panther-texture.left{
+      inset:auto auto -120px -140px;
+      transform: rotate(-12deg);
+      opacity:.05;
+    }
+
+    /* Card system */
+    .card{
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(520px 220px at 15% 0%, rgba(200,16,46,.12), transparent 58%),
+        linear-gradient(180deg, rgba(13,17,23,.92), rgba(11,15,20,.92));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: inherit;
+      pointer-events:none;
+      background:
+        linear-gradient(135deg, rgba(200,16,46,.22), transparent 30%) top left / 180px 180px no-repeat;
+      opacity:.75;
+    }
+
+    .card.pad{padding:22px}
+    .grid-3{display:grid; grid-template-columns: repeat(3,1fr); gap:16px}
+    .grid-2{display:grid; grid-template-columns: repeat(2,1fr); gap:16px}
+    .grid-4{display:grid; grid-template-columns: repeat(4,1fr); gap:14px}
+
+    .icon{
+      width:42px; height:42px; border-radius: 14px;
+      background: rgba(200,16,46,.18);
+      border:1px solid rgba(200,16,46,.45);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 16px 34px rgba(200,16,46,.12);
+      margin-bottom: 12px;
+    }
+    .card h3{margin:0 0 8px; font-size: 17px; letter-spacing:-.01em}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+
+    .lift{
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .lift:hover{
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.18);
+      background:
+        radial-gradient(520px 220px at 15% 0%, rgba(200,16,46,.16), transparent 58%),
+        linear-gradient(180deg, rgba(15,20,28,.96), rgba(11,15,20,.92));
+      box-shadow: var(--shadow2), var(--shadowRed);
+    }
+
+    /* Section headers */
+    .sub{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 14px; margin-bottom: 18px;
+    }
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,240,248,.86);
+      font-size: 13px;
+      white-space:nowrap;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.10);
+    }
+    .tag b{color:var(--white)}
+
+    /* Reveal animations */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in-view{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Split block */
+    .split{
+      display:grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      align-items:stretch;
+    }
+    .checklist{display:grid; gap:10px; margin-top: 10px}
+    .check{
+      display:flex; gap:10px; align-items:flex-start;
+      color: rgba(234,240,248,.9);
+      font-size: 14px;
+    }
+    .check svg{flex:0 0 auto; margin-top:2px}
+
+    /* How it works */
+    .stepper{
+      display:grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 16px;
+    }
+    .steps{display:grid; gap:10px}
+    .step-btn{
+      text-align:left;
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      cursor:pointer;
+      transition: .18s ease;
+      display:flex; gap:12px; align-items:flex-start;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.06);
+    }
+    .step-btn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.12);
+    }
+    .step-btn[aria-selected="true"]{
+      background: linear-gradient(135deg, rgba(200,16,46,.24), rgba(255,255,255,.05));
+      border-color: rgba(200,16,46,.52);
+      box-shadow: 0 14px 34px rgba(200,16,46,.18);
+    }
+    .step-num{
+      width:32px; height:32px; border-radius:12px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(200,16,46,.25);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      box-shadow: 0 10px 24px rgba(200,16,46,.10);
+    }
+    .step-title{font-weight:900; margin:0 0 2px; font-size:14px}
+    .step-hint{margin:0; color:var(--muted); font-size:13px}
+
+    .step-detail{
+      padding: 20px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(700px 260px at 22% 0%, rgba(200,16,46,.22), transparent 58%),
+        linear-gradient(180deg, rgba(13,17,23,.95), rgba(11,15,20,.92));
+      box-shadow: var(--shadow), 0 16px 46px rgba(200,16,46,.14);
+      position:relative;
+      overflow:hidden;
+    }
+    .step-detail .mini{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .mini .pill{background: rgba(255,255,255,.05)}
+    .step-detail h3{
+      margin:0 0 8px;
+      font-size: 20px;
+      letter-spacing:-.02em;
+    }
+    .step-detail p{margin:0; color:var(--muted)}
+
+    /* Tabs (Products) */
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin: 16px 0 18px;
+    }
+    .tab{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,240,248,.9);
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:800;
+      font-size: 13px;
+      transition:.18s ease;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.07);
+    }
+    .tab:hover{background: rgba(255,255,255,.06)}
+    .tab.active{
+      background: linear-gradient(135deg, rgba(200,16,46,.24), rgba(255,255,255,.05));
+      border-color: rgba(200,16,46,.52);
+      box-shadow: 0 14px 32px rgba(200,16,46,.14);
+    }
+
+    /* Machine options */
+    .machine-layout{
+      display:grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 16px;
+      align-items:stretch;
+    }
+    .machine-list{display:grid; gap:10px}
+    .machine-btn{
+      text-align:left;
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      cursor:pointer;
+      transition: .18s ease;
+      display:flex; gap:12px; align-items:flex-start;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.06);
+    }
+    .machine-btn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.12);
+    }
+    .machine-btn[aria-selected="true"]{
+      background: linear-gradient(135deg, rgba(200,16,46,.24), rgba(255,255,255,.05));
+      border-color: rgba(200,16,46,.52);
+      box-shadow: 0 14px 34px rgba(200,16,46,.18);
+    }
+    .machine-icon{
+      width:36px; height:36px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(200,16,46,.22);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 18px;
+      flex:0 0 auto;
+      box-shadow: 0 12px 26px rgba(200,16,46,.10);
+    }
+    .machine-detail h3{margin:0 0 8px; font-size: 20px; letter-spacing:-.02em}
+    .machine-detail p{margin:0; color:var(--muted)}
+    .machine-detail ul{margin:12px 0 0; padding-left:18px; color:rgba(234,240,248,.88)}
+    .machine-detail li{margin:6px 0}
+    .notice{
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,240,248,.86);
+      font-size: 13px;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.08);
+    }
+
+    /* Products */
+    .product-grid{
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 14px;
+    }
+    .product{
+      padding: 16px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      transition:.18s ease;
+      position:relative;
+      overflow:hidden;
+      min-height: 130px;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.06);
+    }
+    .product:hover{
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.12), 0 16px 42px rgba(200,16,46,.08);
+    }
+    .product .badge{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(200,16,46,.22);
+      background: rgba(0,0,0,.20);
+      color: rgba(234,240,248,.88);
+      font-size: 12px;
+      font-weight:800;
+    }
+    .product h4{margin:10px 0 6px; font-size: 15px}
+    .product p{margin:0; color:var(--muted); font-size: 13px}
+    .product:before{
+      content:"";
+      position:absolute; inset:auto -40px -60px auto;
+      width:140px; height:140px;
+      background: radial-gradient(circle, rgba(200,16,46,.24), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid; gap: 12px;
+      max-width: 920px;
+    }
+    details{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding: 14px 16px;
+      transition: .18s ease;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.06);
+    }
+    details:hover{border-color: rgba(255,255,255,.16)}
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{transition: transform .18s ease; opacity:.9}
+    details[open] .chev{transform: rotate(180deg)}
+    details p{margin:10px 0 0; color:var(--muted)}
+
+    /* Contact */
+    form{display:grid; gap: 12px}
+    .fields{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
+    label{font-size: 13px; font-weight: 800; color: rgba(234,240,248,.88)}
+    input, select, textarea{
+      width:100%;
+      margin-top: 6px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+      transition:.18s ease;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(200,16,46,.62);
+      box-shadow: 0 0 0 4px rgba(200,16,46,.18);
+    }
+    textarea{min-height: 120px; resize: vertical}
+    .error{
+      color: #FF8FA1;
+      font-size: 12px;
+      margin-top: 6px;
+      display:none;
+    }
+    .error.show{display:block}
+
+    .success{
+      display:none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(120,255,170,.22);
+      background: rgba(120,255,170,.08);
+      color: rgba(220,255,235,.95);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .success.show{display:block}
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--line);
+      padding: 26px 0 40px;
+      color: rgba(234,240,248,.72);
+      position:relative;
+      overflow:hidden;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap: 12px; flex-wrap:wrap;
+      align-items:flex-start;
+    }
+    .social{display:flex; gap:10px}
+    .social a{
+      width:42px; height:42px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      display:flex; align-items:center; justify-content:center;
+      transition:.18s ease;
+      box-shadow: inset 0 0 0 1px rgba(200,16,46,.06);
+    }
+    .social a:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.18)}
+
+    /* Utilities */
+    .muted{color:var(--muted)}
+    .small{font-size: 13px}
+    .center{display:flex; align-items:center; gap:10px}
+
+    /* Sticky nav offset */
+    section{scroll-margin-top: calc(var(--navH) + 18px)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr; gap:16px}
+      .grid-3{grid-template-columns: 1fr}
+      .grid-4{grid-template-columns: 1fr 1fr}
+      .split{grid-template-columns: 1fr}
+      .stepper{grid-template-columns: 1fr}
+      .machine-layout{grid-template-columns: 1fr}
+      .product-grid{grid-template-columns: 1fr 1fr}
+      nav ul{display:none}
+      .hamburger{display:flex}
+
+      /* hide desktop CTA on mobile */
+      .nav-cta{display:none}
+
+      /* mobile menu stays hidden until .open is toggled (already defined above) */
+      .fields{grid-template-columns: 1fr}
+    }
+    @media (max-width: 520px){
+      .grid-4{grid-template-columns: 1fr}
+      .product-grid{grid-template-columns: 1fr}
+      .hero-actions{flex-direction:column; align-items:stretch}
+      .btn{justify-content:center}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#home" aria-label="CHHS Student-Run Vending home">
+          <span class="brand-badge" aria-hidden="true">
+            <!-- CHHS-style paw (not all red) -->
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <g fill="#11151B" stroke="rgba(255,255,255,.22)" stroke-width="2">
+                <circle cx="16" cy="20" r="6"></circle>
+                <circle cx="28" cy="16.5" r="6.2"></circle>
+                <circle cx="39" cy="16.5" r="6.2"></circle>
+                <circle cx="51" cy="20" r="6"></circle>
+                <path d="M20 35 C20 29 26 26 32 26 C38 26 44 29 44 35 C44 46 39 56 32 56 C25 56 20 46 20 35 Z" stroke-linejoin="round"></path>
+              </g>
+              <g fill="#C8102E" opacity="0.95">
+                <path d="M12 10 l4 6 l-6 -2 Z"></path>
+                <path d="M24 7 l4.5 6.5 l-6.5 -2.2 Z"></path>
+                <path d="M35 7 l4.5 6.5 l-6.5 -2.2 Z"></path>
+                <path d="M48 10 l4 6 l-6 -2 Z"></path>
+              </g>
+            </svg>
+          </span>
+          <span>CHHS Student-Run Vending</span>
+        </a>
+
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#learning">Learning</a></li>
+            <li><a href="#service">Service</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#machines">Machines</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- ONLY ONE Request Info CTA in desktop header -->
+        <div class="nav-cta">
+          <a class="btn btn-primary" href="#contact">Request Info</a>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu (hidden on desktop by CSS fix above) -->
+      <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        <a href="#benefits">Benefits</a>
+        <a href="#learning">Learning</a>
+        <a href="#service">Service</a>
+        <a href="#how">How It Works</a>
+        <a href="#machines">Machines</a>
+        <a href="#products">Products</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+
+        <!-- ONLY ONE Request Info CTA in mobile menu -->
+        <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="#contact">Request Info</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="glow" aria-hidden="true"></div>
+
+      <div class="decor-dots top-left" aria-hidden="true">
+        <svg viewBox="0 0 220 160">
+          <g fill="rgba(200,16,46,.9)">
+            <circle cx="18" cy="18" r="3"/><circle cx="42" cy="18" r="3"/><circle cx="66" cy="18" r="3"/><circle cx="90" cy="18" r="3"/>
+            <circle cx="18" cy="42" r="3"/><circle cx="42" cy="42" r="3"/><circle cx="66" cy="42" r="3"/><circle cx="90" cy="42" r="3"/>
+            <circle cx="18" cy="66" r="3"/><circle cx="42" cy="66" r="3"/><circle cx="66" cy="66" r="3"/><circle cx="90" cy="66" r="3"/>
+            <circle cx="18" cy="90" r="3"/><circle cx="42" cy="90" r="3"/><circle cx="66" cy="90" r="3"/><circle cx="90" cy="90" r="3"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="decor-wave center" aria-hidden="true">
+        <svg viewBox="0 0 520 120">
+          <path d="M10 70 C70 30, 140 110, 200 70 S330 30, 390 70 S470 110, 510 70"
+                fill="none" stroke="rgba(200,16,46,.9)" stroke-width="4" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <svg class="speedlines" viewBox="0 0 800 260" aria-hidden="true">
+        <g fill="none" stroke="rgba(200,16,46,.85)" stroke-opacity=".55" stroke-width="12" stroke-linecap="round">
+          <path d="M40 70 C220 20, 410 10, 760 40" />
+          <path d="M60 125 C240 85, 430 70, 780 92" />
+          <path d="M30 185 C210 150, 430 140, 740 160" />
+        </g>
+      </svg>
+
+      <svg class="claw" viewBox="0 0 600 600" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FFFFFF" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#C8102E" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="url(#g)" stroke-width="22" stroke-linecap="round">
+          <path d="M290 80 C230 180, 210 270, 225 420" />
+          <path d="M350 70 C300 170, 285 265, 305 430" />
+          <path d="M415 80 C370 170, 360 270, 390 450" />
+        </g>
+      </svg>
+
+      <div class="container">
+        <div class="hero-grid">
+          <div class="reveal">
+            <div class="kicker"><span class="dot"></span> Colleyville Heritage High School • Panthers</div>
+            <h1>CHHS Student-Run Vending — A Smarter Amenity for Your Property</h1>
+            <p>
+              A premium, student-run program that adds convenience for residents, employees, and customers—while giving CHHS students real-world experience.
+              <b>We handle everything end-to-end</b>: setup, restocking, maintenance, support, cleanliness, and modern payments.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#machines">Explore Machine Options</a>
+              <a class="btn" href="#how">How It Works</a>
+            </div>
+
+            <div class="hero-meta">
+              <span class="pill"><span aria-hidden="true">⚙️</span> Setup • Restocking • Maintenance</span>
+              <span class="pill"><span aria-hidden="true">🧼</span> Clean, organized, reliable service</span>
+              <span class="pill"><span aria-hidden="true">🧊</span> Micro markets & specialty machines</span>
+            </div>
+          </div>
+
+          <div class="card pad reveal" style="position:relative; overflow:hidden;">
+            <div class="tag"><span aria-hidden="true">🟥</span> <b>Panther-grade</b> presentation</div>
+            <h3 style="margin:12px 0 6px; font-size:20px;">Professional look, low lift for you</h3>
+            <p class="muted" style="margin:0;">
+              We keep everything stocked, clean, and running—so your property gets a premium amenity without extra work for your staff.
+            </p>
+
+            <div style="margin-top:16px; display:flex; justify-content:center;">
+              <svg width="320" height="240" viewBox="0 0 520 380" role="img" aria-label="Vending machine graphic">
+                <defs>
+                  <linearGradient id="vm" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0B0D10"/>
+                    <stop offset="1" stop-color="#151A22"/>
+                  </linearGradient>
+                  <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#FFFFFF" stop-opacity=".12"/>
+                    <stop offset="1" stop-color="#FFFFFF" stop-opacity=".03"/>
+                  </linearGradient>
+                </defs>
+                <rect x="90" y="40" width="280" height="300" rx="22" fill="url(#vm)" stroke="rgba(255,255,255,.18)" />
+                <rect x="120" y="70" width="170" height="210" rx="16" fill="url(#glass)" stroke="rgba(255,255,255,.14)" />
+                <rect x="305" y="70" width="45" height="210" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+                <rect x="120" y="290" width="230" height="34" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+                <circle cx="328" cy="105" r="8" fill="rgba(200,16,46,.9)"/>
+                <circle cx="328" cy="135" r="8" fill="rgba(255,255,255,.25)"/>
+                <circle cx="328" cy="165" r="8" fill="rgba(255,255,255,.25)"/>
+                <g opacity=".9">
+                  <rect x="135" y="90" width="140" height="18" rx="9" fill="rgba(255,255,255,.06)"/>
+                  <rect x="135" y="120" width="120" height="18" rx="9" fill="rgba(255,255,255,.06)"/>
+                  <rect x="135" y="150" width="140" height="18" rx="9" fill="rgba(255,255,255,.06)"/>
+                  <rect x="135" y="180" width="110" height="18" rx="9" fill="rgba(255,255,255,.06)"/>
+                  <rect x="135" y="210" width="140" height="18" rx="9" fill="rgba(255,255,255,.06)"/>
+                  <rect x="135" y="240" width="120" height="18" rx="9" fill="rgba(255,255,255,.06)"/>
+                </g>
+                <rect x="90" y="40" width="12" height="300" rx="6" fill="rgba(200,16,46,.90)"/>
+              </svg>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px;">
+              <div class="pill"><span aria-hidden="true">📍</span> Placement support</div>
+              <div class="pill"><span aria-hidden="true">🛠️</span> Fast issue response</div>
+              <div class="pill"><span aria-hidden="true">🧃</span> Drinks + snacks</div>
+              <div class="pill"><span aria-hidden="true">🥗</span> Fresh options (micro markets)</div>
+            </div>
+
+            <div class="decor-dots bottom-right" aria-hidden="true">
+              <svg viewBox="0 0 220 160">
+                <g fill="rgba(200,16,46,.9)">
+                  <circle cx="130" cy="40" r="3"/><circle cx="154" cy="40" r="3"/><circle cx="178" cy="40" r="3"/>
+                  <circle cx="130" cy="64" r="3"/><circle cx="154" cy="64" r="3"/><circle cx="178" cy="64" r="3"/>
+                  <circle cx="130" cy="88" r="3"/><circle cx="154" cy="88" r="3"/><circle cx="178" cy="88" r="3"/>
+                </g>
+              </svg>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section id="benefits" class="section">
+      <div class="decor-wave bottom" aria-hidden="true">
+        <svg viewBox="0 0 520 120">
+          <path d="M10 60 C80 10, 140 110, 220 60 S360 10, 440 60 S490 110, 510 60"
+                fill="none" stroke="rgba(200,16,46,.9)" stroke-width="4" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <svg class="panther-texture" viewBox="0 0 600 600" aria-hidden="true">
+        <g fill="none" stroke="rgba(255,255,255,.65)" stroke-opacity=".6" stroke-width="18" stroke-linecap="round">
+          <path d="M320 110 C250 210, 230 290, 250 440" />
+          <path d="M380 100 C320 200, 305 290, 330 460" />
+        </g>
+      </svg>
+
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">Why this benefits your property</h2>
+            <p class="lead reveal">A vending solution should feel like an upgrade—not a hassle. Our student team keeps it reliable, clean, and easy for your staff.</p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">🏢</span> Built for properties & businesses</div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card pad lift reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 10h16v10H4V10Z" stroke="white" stroke-opacity=".9" stroke-width="2" />
+                <path d="M7 10V7a5 5 0 0 1 10 0v3" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Adds a convenient amenity</h3>
+            <p>Snacks and drinks on-site for residents, employees, students, or customers—right when they need it.</p>
+          </div>
+
+          <div class="card pad lift reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s7-4.6 7-11a4 4 0 0 0-7-2 4 4 0 0 0-7 2c0 6.4 7 11 7 11Z" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Boosts satisfaction & retention</h3>
+            <p>Convenience matters—an easy upgrade that improves day-to-day experience and perceived value.</p>
+          </div>
+
+          <div class="card pad lift reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h16" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 4v16" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>No operational burden</h3>
+            <p><b>We handle everything end-to-end</b>—setup, restocking, maintenance, payment system, and support.</p>
+          </div>
+
+          <div class="card pad lift reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M7 21h10" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 3h6l-1 14H10L9 3Z" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Reliable restocking & presentation</h3>
+            <p>Consistent stocking routines and a clean, organized layout that looks professional and stays that way.</p>
+          </div>
+
+          <div class="card pad lift reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 6v6l4 2" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Quick support if issues happen</h3>
+            <p>Responsive communication with your property contact—so problems get handled quickly and professionally.</p>
+          </div>
+
+          <div class="card pad lift reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 7h16" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 12h12" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+                <path d="M8 17h8" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Right machine for the location</h3>
+            <p>From snack/drink machines to micro markets, coffee, and frozen—we match the setup to your space and audience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARNING + SERVICE -->
+    <section id="learning" class="section">
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">A hands-on learning experience (CHHS)</h2>
+            <p class="lead reveal">Colleyville Heritage High School students operate this program to learn real-world skills while delivering real value.</p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">🎓</span> Student-run • Community positive</div>
+        </div>
+
+        <div class="split">
+          <div class="card pad reveal">
+            <h3 style="margin:0 0 10px;">What students learn</h3>
+            <p class="muted" style="margin:0 0 12px;">
+              This program builds practical experience—students aren’t just “helping,” they’re running a professional operation.
+            </p>
+            <div class="checklist">
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><b>Entrepreneurship & responsibility</b> — planning, ownership, consistency.</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><b>Operations & logistics</b> — inventory, restocking, organization.</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><b>Customer service</b> — communication, responsiveness, professionalism.</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><b>Technology & payments</b> — modern cashless systems and service quality.</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="service" class="card pad reveal">
+            <h3 style="margin:0 0 10px;">We handle everything end-to-end</h3>
+            <p class="muted" style="margin:0 0 12px;">
+              Your property gets a clean, reliable amenity without extra work for your staff. We coordinate, manage, and maintain the entire operation.
+            </p>
+            <div class="checklist">
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Installation & placement coordination</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Restocking schedule & inventory management</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Maintenance & troubleshooting</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Cashless payments / modern payment options</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Cleanliness & organization</span>
+              </div>
+              <div class="check">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Communication & updates for property contacts</span>
+              </div>
+            </div>
+
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <span class="pill"><span aria-hidden="true">✅</span> Easy install process</span>
+              <span class="pill"><span aria-hidden="true">✅</span> Consistent service</span>
+              <span class="pill"><span aria-hidden="true">✅</span> Professional communication</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section">
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">How it works</h2>
+            <p class="lead reveal">A simple, professional process from first message to long-term service.</p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">🧭</span> Clear steps • Clear expectations</div>
+        </div>
+
+        <div class="stepper">
+          <div class="steps reveal" role="tablist" aria-label="How it works steps">
+            <button class="step-btn" role="tab" aria-selected="true" aria-controls="stepPanel" data-step="0">
+              <span class="step-num">1</span>
+              <span>
+                <div class="step-title">Contact Us</div>
+                <p class="step-hint">Share your location type and goals.</p>
+              </span>
+            </button>
+
+            <button class="step-btn" role="tab" aria-selected="false" aria-controls="stepPanel" data-step="1">
+              <span class="step-num">2</span>
+              <span>
+                <div class="step-title">Quick Call / Needs Assessment</div>
+                <p class="step-hint">We align on machines, products, and placement.</p>
+              </span>
+            </button>
+
+            <button class="step-btn" role="tab" aria-selected="false" aria-controls="stepPanel" data-step="2">
+              <span class="step-num">3</span>
+              <span>
+                <div class="step-title">Location Review</div>
+                <p class="step-hint">Confirm power, space, and visibility.</p>
+              </span>
+            </button>
+
+            <button class="step-btn" role="tab" aria-selected="false" aria-controls="stepPanel" data-step="3">
+              <span class="step-num">4</span>
+              <span>
+                <div class="step-title">Install + Setup</div>
+                <p class="step-hint">We coordinate install and payments.</p>
+              </span>
+            </button>
+
+            <button class="step-btn" role="tab" aria-selected="false" aria-controls="stepPanel" data-step="4">
+              <span class="step-num">5</span>
+              <span>
+                <div class="step-title">Ongoing Service + Support</div>
+                <p class="step-hint">Restocking, cleanliness, and fast help.</p>
+              </span>
+            </button>
+          </div>
+
+          <div class="step-detail reveal" id="stepPanel" role="tabpanel" aria-label="Step details">
+            <h3 id="stepTitle">Contact Us</h3>
+            <p id="stepText" class="muted">
+              Tell us the property type (office, apartments, retail, school, etc.) and the best place for a machine.
+              We’ll respond with next steps and a quick set of questions to understand your needs.
+            </p>
+            <div class="mini" id="stepMini">
+              <span class="pill"><span aria-hidden="true">📍</span> Property type</span>
+              <span class="pill"><span aria-hidden="true">🔌</span> Power access</span>
+              <span class="pill"><span aria-hidden="true">🚶</span> Foot traffic</span>
+            </div>
+
+            <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn btn-primary" href="#contact">Start a Conversation</a>
+              <a class="btn" href="#machines">See Machine Options</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MACHINES -->
+    <section id="machines" class="section">
+      <svg class="panther-texture left" viewBox="0 0 600 600" aria-hidden="true">
+        <g fill="none" stroke="rgba(200,16,46,.9)" stroke-opacity=".55" stroke-width="20" stroke-linecap="round">
+          <path d="M280 120 C220 220, 210 310, 230 450" />
+          <path d="M340 110 C290 215, 285 305, 310 470" />
+        </g>
+      </svg>
+
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">Multiple machine types & sizes</h2>
+            <p class="lead reveal">
+              Not every location needs the same setup. We offer different machine styles and sizes—from classic vending to premium micro markets—so the solution fits your space and your audience.
+            </p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">🧊</span> Micro markets • Coffee • Frozen • Drinks</div>
+        </div>
+
+        <div class="card pad reveal">
+          <div class="machine-layout">
+            <div class="machine-list" role="tablist" aria-label="Machine options">
+              <button class="machine-btn" role="tab" aria-selected="true" data-machine="0">
+                <span class="machine-icon" aria-hidden="true">🛍️</span>
+                <span>
+                  <div class="step-title">Micro Markets (Fresh + premium)</div>
+                  <p class="step-hint">Luxury convenience with more variety.</p>
+                </span>
+              </button>
+
+              <button class="machine-btn" role="tab" aria-selected="false" data-machine="1">
+                <span class="machine-icon" aria-hidden="true">☕</span>
+                <span>
+                  <div class="step-title">Coffee Machines</div>
+                  <p class="step-hint">Perfect for offices & waiting areas.</p>
+                </span>
+              </button>
+
+              <button class="machine-btn" role="tab" aria-selected="false" data-machine="2">
+                <span class="machine-icon" aria-hidden="true">🧊</span>
+                <span>
+                  <div class="step-title">Frozen Machines</div>
+                  <p class="step-hint">Ice cream & frozen snacks (where ideal).</p>
+                </span>
+              </button>
+
+              <button class="machine-btn" role="tab" aria-selected="false" data-machine="3">
+                <span class="machine-icon" aria-hidden="true">🧃</span>
+                <span>
+                  <div class="step-title">Drink Machines</div>
+                  <p class="step-hint">High-demand hydration & beverages.</p>
+                </span>
+              </button>
+
+              <button class="machine-btn" role="tab" aria-selected="false" data-machine="4">
+                <span class="machine-icon" aria-hidden="true">🍫</span>
+                <span>
+                  <div class="step-title">Snack / Combo Vending</div>
+                  <p class="step-hint">Classic snack + drink setups.</p>
+                </span>
+              </button>
+            </div>
+
+            <div class="step-detail machine-detail" id="machinePanel" role="tabpanel" aria-label="Selected machine details">
+              <h3 id="machineTitle">Micro Markets (Fresh + premium)</h3>
+              <p id="machineText" class="muted">
+                A premium “mini store” experience with expanded variety and a luxury amenity feel—great for offices, apartments, and high-traffic environments.
+              </p>
+
+              <ul id="machineBullets">
+                <li>Fresh-forward options like <b>salads</b> and upgraded grab-and-go items (where appropriate).</li>
+                <li>More variety than a standard machine: snacks, drinks, and premium selections.</li>
+                <li>Amenities that make the property feel higher-end and more convenient.</li>
+              </ul>
+
+              <div class="notice" id="machineNote">
+                We match the setup to your location (space, power, audience, and policies). Fresh items require the right equipment and handling, which we plan together during the location review.
+              </div>
+
+              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn btn-primary" href="#contact">Ask About Options</a>
+                <a class="btn" href="#how">Process Overview</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="section">
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">Product options</h2>
+            <p class="lead reveal">
+              We tailor the product mix to your property’s needs—snacks, drinks, healthier options, and (when appropriate) convenience items.
+            </p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">🛒</span> Customizable product mix</div>
+        </div>
+
+        <div class="card pad reveal">
+          <div class="tabs" role="tablist" aria-label="Product categories">
+            <button class="tab active" data-tab="snacks" role="tab" aria-selected="true">Snacks</button>
+            <button class="tab" data-tab="drinks" role="tab" aria-selected="false">Drinks</button>
+            <button class="tab" data-tab="healthy" role="tab" aria-selected="false">Healthier Options</button>
+            <button class="tab" data-tab="convenience" role="tab" aria-selected="false">Convenience (Optional)</button>
+          </div>
+
+          <div class="product-grid" id="productGrid" aria-live="polite"></div>
+
+          <p class="muted small" style="margin:14px 0 0;">
+            Note: Convenience items are offered only when appropriate for the location and audience, and only in line with location policies.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">FAQ</h2>
+            <p class="lead reveal">Quick answers for principals, property managers, and business owners.</p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">💬</span> Clear + credible</div>
+        </div>
+
+        <div class="faq reveal">
+          <details>
+            <summary>
+              Does this cost the property anything?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <p>
+              We’ll discuss the setup details with you up front. The goal is to provide a high-value amenity with minimal burden on the property.
+              We keep expectations transparent and professional.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              Who refills the machine?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <p>
+              The CHHS student team manages restocking on a consistent schedule and adapts based on demand.
+              <b>We handle everything end-to-end.</b>
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              What if something breaks or there’s an issue?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <p>
+              We provide a clear point of contact for your property and respond quickly to troubleshoot. Our goal is consistent uptime and clean service.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              Can we request certain products or machine types?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <p>
+              Yes. We tailor the setup to your audience and policies. We can recommend the right machine type (snack/drink, coffee, frozen, micro market) and adjust products based on what sells.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              How quickly can you install?
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <p>
+              After a quick call and location review (power + placement), we coordinate installation. Timing depends on the site details,
+              but we move efficiently and communicate clearly.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="decor-dots top-left" aria-hidden="true" style="top:34px; left:22px;">
+        <svg viewBox="0 0 220 160">
+          <g fill="rgba(200,16,46,.9)">
+            <circle cx="18" cy="18" r="3"/><circle cx="42" cy="18" r="3"/><circle cx="66" cy="18" r="3"/>
+            <circle cx="18" cy="42" r="3"/><circle cx="42" cy="42" r="3"/><circle cx="66" cy="42" r="3"/>
+            <circle cx="18" cy="66" r="3"/><circle cx="42" cy="66" r="3"/><circle cx="66" cy="66" r="3"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="container">
+        <div class="sub">
+          <div>
+            <h2 class="reveal">Contact & schedule a meeting</h2>
+            <p class="lead reveal">Tell us about your location. We’ll follow up to confirm details and set a time to talk.</p>
+            <p class="small muted reveal" style="margin:10px 0 0;">
+              Prefer to talk live? <a href="#meeting" style="color:rgba(234,240,248,.92); font-weight:900; text-decoration:underline; text-decoration-color: rgba(200,16,46,.65);">Schedule a Meeting →</a>
+            </p>
+          </div>
+          <div class="tag reveal"><span aria-hidden="true">📩</span> Request info • Book a discussion</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card pad reveal">
+            <h3 style="margin:0 0 10px;">Send a message</h3>
+            <p class="muted" style="margin:0 0 14px;">
+              This form can send directly to <b>vqshen4@gmail.com</b> using a form backend (recommended: Formspree).
+            </p>
+
+            <form id="contactForm" method="POST">
+              <div class="fields">
+                <div>
+                  <label for="name">Name *</label>
+                  <input id="name" name="name" type="text" placeholder="Your name" required />
+                  <div class="error" id="errName">Please enter your name.</div>
+                </div>
+                <div>
+                  <label for="org">Organization / Property Name *</label>
+                  <input id="org" name="org" type="text" placeholder="Company / Property" required />
+                  <div class="error" id="errOrg">Please enter your organization or property name.</div>
+                </div>
+              </div>
+
+              <div class="fields">
+                <div>
+                  <label for="email">Email *</label>
+                  <input id="email" name="email" type="email" placeholder="name@email.com" required />
+                  <div class="error" id="errEmail">Please enter a valid email.</div>
+                </div>
+                <div>
+                  <label for="phone">Phone (optional)</label>
+                  <input id="phone" name="phone" type="tel" placeholder="(###) ###-####" />
+                  <div class="error" id="errPhone">Please enter a valid phone number (or leave blank).</div>
+                </div>
+              </div>
+
+              <div class="fields">
+                <div>
+                  <label for="type">Property Type *</label>
+                  <select id="type" name="property_type" required>
+                    <option value="">Select one…</option>
+                    <option>Office / Workplace</option>
+                    <option>Apartments / Residential</option>
+                    <option>Retail / Store</option>
+                    <option>School / Campus</option>
+                    <option>Gym / Sports Facility</option>
+                    <option>Medical / Clinic</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="error" id="errType">Please select a property type.</div>
+                </div>
+                <div>
+                  <label for="times">Preferred Meeting Times</label>
+                  <input id="times" name="preferred_times" type="text" placeholder="e.g., Weekdays after 4pm" />
+                </div>
+              </div>
+
+              <div>
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" placeholder="Tell us about foot traffic, where a machine could go, and what you want to offer…" required></textarea>
+                <div class="error" id="errMsg">Please include a short message.</div>
+              </div>
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:2px;">
+                <button class="btn btn-primary" type="submit">Send Request</button>
+                <button class="btn" type="button" id="prefillMeeting">I want to schedule a meeting</button>
+              </div>
+
+              <div class="success" id="successBox">
+                ✅ Sent! We’ll follow up soon.
+              </div>
+
+              <div class="notice">
+                If you haven’t set up Formspree yet, the form won’t send. Publish the site, then connect Formspree and paste your endpoint.
+              </div>
+            </form>
+
+            <p class="muted small" style="margin:14px 0 0;">
+              Contact: <b>vqshen4@gmail.com</b>
+            </p>
+          </div>
+
+          <div class="card pad reveal" id="meeting">
+            <h3 style="margin:0 0 10px;">Schedule a meeting (quick email generator)</h3>
+            <p class="muted" style="margin:0 0 14px;">
+              Choose a meeting type and click “Generate Email” to open a pre-written message to <b>vqshen4@gmail.com</b>.
+            </p>
+
+            <div class="grid-2">
+              <div class="card pad" style="background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.10); box-shadow:none;">
+                <label for="meetType">Meeting Type</label>
+                <select id="meetType">
+                  <option value="Intro Call">Intro Call</option>
+                  <option value="On-site Walkthrough">On-site Walkthrough</option>
+                  <option value="Machine Options Review">Machine Options Review</option>
+                  <option value="Install Planning">Install Planning</option>
+                </select>
+              </div>
+              <div class="card pad" style="background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.10); box-shadow:none;">
+                <label for="meetWindow">Preferred Window</label>
+                <input id="meetWindow" type="text" placeholder="e.g., Tue/Thu 3–5pm" />
+              </div>
+            </div>
+
+            <div style="margin-top:12px;" class="card pad" style="background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.10); box-shadow:none;">
+              <label for="meetNotes">Notes (optional)</label>
+              <textarea id="meetNotes" placeholder="Add any details you want CHHS Student-Run Vending to know…"></textarea>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+              <button class="btn btn-primary" id="generateEmail" type="button">Generate Email</button>
+              <a class="btn" href="#machines">Explore Machine Types</a>
+            </div>
+
+            <div class="grid-4" style="margin-top:16px;">
+              <div class="pill"><span aria-hidden="true">🤝</span> Professional</div>
+              <div class="pill"><span aria-hidden="true">⚡</span> Fast follow-up</div>
+              <div class="pill"><span aria-hidden="true">🧼</span> Clean service</div>
+              <div class="pill"><span aria-hidden="true">🎓</span> Student-run</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="foot">
+          <div>
+            <div class="center">
+              <span class="brand-badge" aria-hidden="true">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <g fill="#11151B" stroke="rgba(255,255,255,.22)" stroke-width="2">
+                    <circle cx="16" cy="20" r="6"></circle>
+                    <circle cx="28" cy="16.5" r="6.2"></circle>
+                    <circle cx="39" cy="16.5" r="6.2"></circle>
+                    <circle cx="51" cy="20" r="6"></circle>
+                    <path d="M20 35 C20 29 26 26 32 26 C38 26 44 29 44 35 C44 46 39 56 32 56 C25 56 20 46 20 35 Z" stroke-linejoin="round"></path>
+                  </g>
+                  <g fill="#C8102E" opacity="0.95">
+                    <path d="M12 10 l4 6 l-6 -2 Z"></path>
+                    <path d="M24 7 l4.5 6.5 l-6.5 -2.2 Z"></path>
+                    <path d="M35 7 l4.5 6.5 l-6.5 -2.2 Z"></path>
+                    <path d="M48 10 l4 6 l-6 -2 Z"></path>
+                  </g>
+                </svg>
+              </span>
+              <div>
+                <div style="font-weight:900;">CHHS Student-Run Vending</div>
+                <div class="small muted">Colleyville Heritage High School • “Student-run initiative. Professional service.”</div>
+              </div>
+            </div>
+            <div class="small muted" style="margin-top:10px;">
+              Contact: <b>vqshen4@gmail.com</b>
+            </div>
+          </div>
+
+          <div class="social" aria-label="Social links (optional placeholders)">
+            <a href="#" aria-label="Instagram (placeholder)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
+                <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="white" stroke-opacity=".9" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn (placeholder)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 4h4v16H4V4Z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
+                <path d="M10 10h4v10h-4V10Z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
+                <path d="M14 12c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v8h-4v-8" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="mailto:vqshen4@gmail.com" aria-label="Email vqshen4@gmail.com">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16v12H4V6Z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
+                <path d="M4 7l8 6 8-6" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // =========================
+    // CONNECT THE FORM (Formspree)
+    // =========================
+    // Create a Formspree form, set notifications to: vqshen4@gmail.com
+    // Then paste your endpoint below (example: "https://formspree.io/f/abcdwxyz")
+    const FORM_ENDPOINT = ""; // <-- PASTE YOUR FORMSPREE ENDPOINT HERE
+
+    // Mobile nav
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger?.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    mobileMenu?.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+
+    // Scroll reveal
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // How it works stepper
+    const steps = [
+      {
+        title: "Contact Us",
+        text: "Tell us the property type (office, apartments, retail, school, etc.) and the best place for a machine. We’ll respond with next steps and a quick set of questions to understand your needs.",
+        minis: ["📍 Property type", "🔌 Power access", "🚶 Foot traffic"]
+      },
+      {
+        title: "Quick Call / Needs Assessment",
+        text: "We align on your audience, machine type, and product goals. We’ll talk through traffic patterns, operating hours, and preferences (snacks, drinks, healthier options, coffee, frozen, micro market).",
+        minis: ["🧊 Machine options", "🛒 Product goals", "🤝 Expectations"]
+      },
+      {
+        title: "Location Review",
+        text: "We confirm placement details like space, visibility, and power access. This helps ensure the setup looks professional and performs well.",
+        minis: ["📐 Space check", "👀 Visibility", "🔌 Power confirmed"]
+      },
+      {
+        title: "Install + Setup",
+        text: "We coordinate installation and set up modern payment options. The setup launches clean and organized with a product mix tailored to your location.",
+        minis: ["🧰 Install plan", "💳 Payments", "🧼 Clean launch"]
+      },
+      {
+        title: "Ongoing Service + Support",
+        text: "We restock on a schedule, keep the machine clean and organized, and respond quickly if issues arise. You get a reliable amenity with minimal effort.",
+        minis: ["📦 Restocking", "🧼 Cleanliness", "⚡ Fast support"]
+      }
+    ];
+
+    const stepButtons = Array.from(document.querySelectorAll('.step-btn'));
+    const stepTitle = document.getElementById('stepTitle');
+    const stepText = document.getElementById('stepText');
+    const stepMini = document.getElementById('stepMini');
+
+    function setStep(idx){
+      const s = steps[idx];
+      stepButtons.forEach((btn, i) => btn.setAttribute('aria-selected', i === idx ? 'true' : 'false'));
+      stepTitle.textContent = s.title;
+      stepText.textContent = s.text;
+      stepMini.innerHTML = s.minis.map(m => {
+        const emoji = m.split(' ')[0];
+        const rest = m.slice(2);
+        return `<span class="pill"><span aria-hidden="true">${emoji}</span> ${rest}</span>`;
+      }).join('');
+    }
+    stepButtons.forEach(btn => btn.addEventListener('click', () => setStep(Number(btn.dataset.step))));
+
+    // Machine options
+    const machineData = [
+      {
+        title: "Micro Markets (Fresh + premium)",
+        text: "A premium “mini store” experience with expanded variety and a luxury amenity feel—great for offices, apartments, and high-traffic environments.",
+        bullets: [
+          "Fresh-forward options like salads and upgraded grab-and-go items (where appropriate).",
+          "More variety than standard vending: snacks, drinks, premium selections, and add-ons.",
+          "Creates a higher-end amenity experience for residents/employees/customers."
+        ],
+        note: "We match the setup to your location (space, power, audience, and policies). Fresh items require the right equipment and handling, which we plan together during the location review."
+      },
+      {
+        title: "Coffee Machines",
+        text: "Coffee can be a high-value, high-usage amenity—especially for offices, staff rooms, and waiting areas.",
+        bullets: [
+          "Supports convenience for early mornings and busy days.",
+          "Can be tailored for usage level and space (compact to more premium).",
+          "Great for employee satisfaction and a “premium” property feel."
+        ],
+        note: "Coffee setups depend on the model and location needs. We’ll recommend the right size and service plan."
+      },
+      {
+        title: "Frozen Machines",
+        text: "Frozen machines can offer ice cream and frozen snacks for locations where it makes sense (gyms, schools, recreation centers, etc.).",
+        bullets: [
+          "Frozen treats and specialty items can be a strong draw.",
+          "Adds variety beyond standard snack/drink vending.",
+          "Works best when placement and traffic support it."
+        ],
+        note: "Frozen setups require the right environment and power. We’ll confirm feasibility during the location review."
+      },
+      {
+        title: "Drink Machines",
+        text: "Drink-only machines are great for high-demand hydration and fast-moving beverage locations.",
+        bullets: [
+          "High turnover and consistent demand in many locations.",
+          "Water, sports drinks, sodas, and other mixes based on your audience.",
+          "Works well alongside snack or micro market solutions."
+        ],
+        note: "We’ll recommend the right drink mix based on your traffic and preferences."
+      },
+      {
+        title: "Snack / Combo Vending",
+        text: "Classic vending that fits almost anywhere—snacks, drinks, or a combination machine depending on your space.",
+        bullets: [
+          "Reliable and flexible solution for most locations.",
+          "Easy to customize product mix and rotate best sellers.",
+          "Multiple sizes available to fit compact spaces or larger traffic."
+        ],
+        note: "We select a machine size that matches your space and your expected demand."
+      }
+    ];
+
+    const machineButtons = Array.from(document.querySelectorAll('.machine-btn'));
+    const machineTitle = document.getElementById('machineTitle');
+    const machineText = document.getElementById('machineText');
+    const machineBullets = document.getElementById('machineBullets');
+    const machineNote = document.getElementById('machineNote');
+
+    function setMachine(idx){
+      const m = machineData[idx];
+      machineButtons.forEach((btn, i) => btn.setAttribute('aria-selected', i === idx ? 'true' : 'false'));
+      machineTitle.textContent = m.title;
+      machineText.textContent = m.text;
+      machineBullets.innerHTML = m.bullets.map(b => `<li>${b}</li>`).join('');
+      machineNote.textContent = m.note;
+    }
+    machineButtons.forEach(btn => btn.addEventListener('click', () => setMachine(Number(btn.dataset.machine))));
+
+    // Products (tabs + grid)
+    const productsByTab = {
+      snacks: [
+        { badge:"Popular", name:"Chips & Classics", desc:"A balanced mix of crowd favorites for steady demand." },
+        { badge:"Sweet", name:"Candy & Treats", desc:"Quick picks that sell consistently across locations." },
+        { badge:"Grab-and-go", name:"Cookies & Bars", desc:"Easy snack choices with reliable turnover." },
+        { badge:"Protein", name:"Jerky / Protein Snacks", desc:"Better-for-you options with strong satisfaction." },
+        { badge:"Variety", name:"Mixed Snack Rotation", desc:"We adjust based on what sells at your location." },
+        { badge:"Custom", name:"Location requests", desc:"We tailor to your audience and rules." },
+        { badge:"Premium", name:"Upgraded brands", desc:"More premium options for higher-end properties." },
+        { badge:"Seasonal", name:"Limited-time items", desc:"Optional rotations to keep it fresh." },
+      ],
+      drinks: [
+        { badge:"Cold", name:"Water & Sparkling", desc:"Always-in-demand hydration options." },
+        { badge:"Classic", name:"Sodas", desc:"Reliable sellers with predictable demand." },
+        { badge:"Sport", name:"Electrolyte Drinks", desc:"Great for gyms and high-activity sites." },
+        { badge:"Coffee", name:"Canned Coffee", desc:"Popular for offices and early schedules." },
+        { badge:"Juice", name:"Juice Options", desc:"A variety of flavors and better picks." },
+        { badge:"Energy", name:"Energy Drinks", desc:"If appropriate for the location and audience." },
+        { badge:"Custom", name:"Property-friendly mix", desc:"We align with your preferences and policies." },
+        { badge:"Rotation", name:"Seasonal drinks", desc:"Optional rotations to match demand." },
+      ],
+      healthy: [
+        { badge:"Better-for-you", name:"Trail Mix / Nuts", desc:"A more nutritious choice with strong demand." },
+        { badge:"Protein", name:"Protein Bars", desc:"Great for workplaces and fitness-focused sites." },
+        { badge:"Low sugar", name:"Low-sugar snacks", desc:"Smarter options for wellness-conscious audiences." },
+        { badge:"Hydration", name:"Water + light drinks", desc:"Simple choices that fit most locations." },
+        { badge:"Balanced", name:"Portion-controlled", desc:"Smaller sizes that still satisfy." },
+        { badge:"Custom", name:"Dietary-friendly requests", desc:"We can aim for options that match your audience." },
+        { badge:"Rotation", name:"Healthy seasonal picks", desc:"Keep selections fresh without clutter." },
+        { badge:"Popular", name:"Best sellers (healthy)", desc:"We track demand and adjust the mix." },
+      ],
+      convenience: [
+        { badge:"Optional", name:"Lip Balm", desc:"Convenient add-on when appropriate for the location." },
+        { badge:"Optional", name:"Mints / Gum", desc:"A simple convenience that sells well." },
+        { badge:"Optional", name:"Bandages", desc:"Useful in certain environments." },
+        { badge:"Optional", name:"Hand Sanitizer", desc:"Helpful in offices and public spaces." },
+        { badge:"Optional", name:"Travel-size essentials", desc:"Small items depending on property needs." },
+        { badge:"Custom", name:"Property-specific requests", desc:"We align with your policies before offering anything." },
+        { badge:"Note", name:"Policy-first approach", desc:"We only place items that fit the location and rules." },
+        { badge:"Custom", name:"Audience-based mix", desc:"Your audience drives the selection." },
+      ]
+    };
+
+    const productGrid = document.getElementById('productGrid');
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+
+    function renderProducts(tabKey){
+      const list = productsByTab[tabKey] || [];
+      productGrid.innerHTML = list.map(item => `
+        <div class="product" role="listitem">
+          <span class="badge">${item.badge}</span>
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => {
+        tabs.forEach(x => x.classList.remove('active'));
+        tabs.forEach(x => x.setAttribute('aria-selected', 'false'));
+        t.classList.add('active');
+        t.setAttribute('aria-selected', 'true');
+        renderProducts(t.dataset.tab);
+      });
+    });
+
+    renderProducts('snacks');
+    setMachine(0);
+
+    // Contact form validation + submit (Formspree fetch)
+    const form = document.getElementById('contactForm');
+    const successBox = document.getElementById('successBox');
+
+    function showError(id, show){
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle('show', !!show);
+    }
+
+    function isValidEmail(v){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || '').trim());
+    }
+
+    function isValidPhone(v){
+      const s = String(v || '').trim();
+      if (!s) return true;
+      const digits = s.replace(/[^\d]/g,'');
+      return digits.length >= 10 && digits.length <= 15;
+    }
+
+    async function submitToFormspree(formEl){
+      if (!FORM_ENDPOINT){
+        alert("Form is not connected yet. Create a Formspree form and paste your endpoint into FORM_ENDPOINT in the script.");
+        return false;
+      }
+      const formData = new FormData(formEl);
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: formData
+      });
+      return res.ok;
+    }
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const org = document.getElementById('org').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const type = document.getElementById('type').value.trim();
+      const msg = document.getElementById('message').value.trim();
+
+      const okName = name.length > 0;
+      const okOrg = org.length > 0;
+      const okEmail = isValidEmail(email);
+      const okPhone = isValidPhone(phone);
+      const okType = type.length > 0;
+      const okMsg = msg.length > 10;
+
+      showError('errName', !okName);
+      showError('errOrg', !okOrg);
+      showError('errEmail', !okEmail);
+      showError('errPhone', !okPhone);
+      showError('errType', !okType);
+      showError('errMsg', !okMsg);
+
+      const allOk = okName && okOrg && okEmail && okPhone && okType && okMsg;
+
+      successBox.classList.remove('show');
+      if (!allOk) return;
+
+      const btn = form.querySelector('button[type="submit"]');
+      const oldText = btn.textContent;
+      btn.textContent = "Sending...";
+      btn.disabled = true;
+
+      try{
+        const ok = await submitToFormspree(form);
+        if (ok){
+          successBox.classList.add('show');
+          form.reset();
+        } else {
+          alert("Something went wrong sending the form. Double-check your Formspree endpoint and try again.");
+        }
+      } catch(err){
+        alert("Network error sending the form. Try again, or check your Formspree endpoint.");
+      } finally{
+        btn.textContent = oldText;
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById('prefillMeeting')?.addEventListener('click', () => {
+      const message = document.getElementById('message');
+      message.value = "Hi! I’d like to schedule a meeting to discuss CHHS Student-Run Vending for our property. We’re interested in machine options (vending, coffee, frozen, or micro market), placement, and the install timeline. Please reach out to coordinate a time.";
+      document.getElementById('times')?.focus();
+      successBox.classList.remove('show');
+    });
+
+    document.getElementById('generateEmail')?.addEventListener('click', () => {
+      const meetType = document.getElementById('meetType').value;
+      const meetWindow = document.getElementById('meetWindow').value.trim() || "Anytime that works";
+      const meetNotes = document.getElementById('meetNotes').value.trim();
+
+      const subject = encodeURIComponent(`Meeting Request: ${meetType} (CHHS Student-Run Vending)`);
+      const body = encodeURIComponent(
+`Hello CHHS Student-Run Vending Team,
+
+I’d like to schedule a ${meetType} to discuss adding vending services to our property.
+
+Preferred time window: ${meetWindow}
+Notes: ${meetNotes || "N/A"}
+
+Thank you,
+[Your Name]
+[Organization / Property Name]
+[Phone]`
+      );
+
+      window.location.href = `mailto:vqshen4@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
