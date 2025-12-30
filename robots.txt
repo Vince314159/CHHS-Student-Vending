@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vince314159.github.io/CHHS-Student-Vending/sitemap.xml
