@@ -168,8 +168,7 @@ document.addEventListener('submit',e=>{
   render();
   notice('Entry saved in this browser. Review Activity or save this month; export history to share with ChatGPT.','warning',recordCount(legacy)>0);
 });
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#exportQuickEntries'))return;
+function downloadFinanceHistory(){
   const hidden=periods.removed();
   const validEntries={
     monthlyExpenses:quick.monthlyExpenses.filter(r=>!hidden.monthlyExpenses.includes(periods.identity(r))),
@@ -177,11 +176,13 @@ document.addEventListener('click',e=>{
   };
   const blob=new Blob([JSON.stringify({schemaVersion:2,exportedAt:new Date().toISOString(),...validEntries,...periods.export()},null,2)],{type:'application/json'});
   const link=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=link;a.download='vending-finance-history-'+localDate()+'.json';
+  a.href=link;a.download='vending-finance-backup-'+localDate()+'.json';
   document.body.append(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(link),1000);
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#exportQuickEntries'))downloadFinanceHistory();
 });
-
 
 document.addEventListener('click',event=>{
  const remove=event.target.closest('[data-remove-kind][data-remove-id]');
@@ -202,8 +203,10 @@ document.addEventListener('click',event=>{
    if(!name){alert('Give the month a name before saving.');return}
    if(!confirm('Save "'+name+'" to Months and reset the current Home figures? Your all-time money bar will not reset.'))return;
    try{const saved=periods.create(state,name);
+     let backupDownloaded=false;
+     try{downloadFinanceHistory();backupDownloaded=true}catch(error){/* Month still saved; export can be retried from Months. */}
      render();
-     notice('Saved "'+saved.name+'" in Months on this browser. The current Home period has reset; lifetime money remains unchanged. Export history to back it up.','warning',recordCount(legacy)>0);
+     notice('Saved "'+saved.name+'" in Months. Home reset; the lifetime money bar was preserved.'+(backupDownloaded?' A finance backup was downloaded.':' Use Export Entries + Months to create a backup.'),'warning',recordCount(legacy)>0);
    }catch(err){alert(err.message||'Could not save the month.')}
    return;
  }
