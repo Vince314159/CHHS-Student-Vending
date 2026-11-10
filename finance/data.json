@@ -4,5 +4,7 @@
   "currency": "USD",
   "receipts": [],
   "machines": [],
-  "funding": []
+  "funding": [],
+  "monthlyExpenses": [],
+  "moneyGained": []
 }
