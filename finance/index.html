@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#f7f9fd" />
-  <meta name="description" content="CHHS vending finance display — performance, receipts, machines, and funding." />
+  <meta name="description" content="CHHS vending finance board — earnings, monthly expenses, and machine performance." />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
   <link rel="apple-touch-icon" href="icon.svg" />
   <title>Vending Finance Board</title>
-  <link rel="stylesheet" href="styles.css?v=read-only-v1" />
+  <link rel="stylesheet" href="styles.css?v=cash-entry-v1" />
 </head>
 <body>
   <div class="app-shell">
@@ -20,7 +20,7 @@
           <h1 id="pageTitle">Home</h1>
         </div>
       </div>
-      <div class="display-chip" title="Edit finance data through ChatGPT, not this page">DISPLAY ONLY</div>
+      <div class="display-chip" title="ChatGPT manages shared data; quick entries save in your browser">CHAT + QUICK ENTRY</div>
     </header>
 
     <div id="dataNotice" class="sync-notice" role="status" aria-live="polite"></div>
@@ -31,8 +31,9 @@
       <button type="button" class="nav-item" data-page="receipts"><span class="nav-icon">▤</span><span>Receipts</span></button>
       <button type="button" class="nav-item" data-page="machines"><span class="nav-icon">▣</span><span>Machines</span></button>
       <button type="button" class="nav-item" data-page="funding"><span class="nav-icon">$</span><span>Funding</span></button>
+      <button type="button" class="nav-item" data-page="monthly"><span class="nav-icon">▥</span><span>Monthly Expenses</span></button>
     </nav>
   </div>
-  <script src="app.js?v=read-only-v1"></script>
+  <script src="app.js?v=cash-entry-v1"></script>
 </body>
 </html>
