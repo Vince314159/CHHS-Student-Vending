@@ -6,19 +6,24 @@
   const KINDS=['monthlyExpenses','moneyGained','receipts','machines','funding'];
   const CASH=['monthlyExpenses','moneyGained'];
   const empty=()=>({months:[],removed:{monthlyExpenses:[],moneyGained:[]}});
-  let local=(()=>{try{const data=JSON.parse(localStorage.getItem(STORE)||'{}');return {
-      months:Array.isArray(data.months)?data.months:[],
-      removed:{monthlyExpenses:Array.isArray(data.removed?.monthlyExpenses)?data.removed.monthlyExpenses:[],
-               moneyGained:Array.isArray(data.removed?.moneyGained)?data.removed.moneyGained:[]}
-    }}catch{return empty()}})();
+  function readLocal(){
+    try{
+      const data=JSON.parse(localStorage.getItem(STORE)||'{}');
+      return {months:Array.isArray(data.months)?data.months:[],
+        removed:{monthlyExpenses:Array.isArray(data.removed?.monthlyExpenses)?data.removed.monthlyExpenses:[],
+                 moneyGained:Array.isArray(data.removed?.moneyGained)?data.removed.moneyGained:[]}};
+    }catch{return empty()}
+  }
+  let local=readLocal();
+  const refreshLocal=()=>{local=readLocal();return local};
   let shared=[];
   const identity=row=>String(row?.id??'json:'+JSON.stringify(row));
   const dollars=rows=>Math.round((rows||[]).reduce((sum,row)=>sum+(Number(row.amount)||0),0)*100)/100;
   const moneyNum=n=>Math.round((Number(n)||0)*100)/100;
-  const all=()=>{const dict=new Map();for(const m of shared)if(m?.id)dict.set(String(m.id),m);
+  const all=()=>{refreshLocal();const dict=new Map();for(const m of shared)if(m?.id)dict.set(String(m.id),m);
     for(const m of local.months)if(m?.id)dict.set(String(m.id),m);
     return [...dict.values()].sort((a,b)=>String(b.savedAt||'').localeCompare(String(a.savedAt||'')));};
-  const removedSet=kind=>new Set(local.removed[kind]||[]);
+  const removedSet=kind=>new Set(refreshLocal().removed[kind]||[]);
   function visible(data){
     const result={...data};
     for(const kind of KINDS){
@@ -36,7 +41,17 @@
     return result;
   }
   function isArchived(kind,row){const id=identity(row);return all().some(m=>(m.captured?.[kind]||[]).includes(id))}
-  function localPersist(next){localStorage.setItem(STORE,JSON.stringify(next));local=next}
+  function localPersist(next){
+    // Merge with disk just before writing, so another open tab's month or
+    // removal is not discarded by a stale in-memory copy.
+    const latest=readLocal();
+    const monthMap=new Map(latest.months.filter(m=>m&&m.id).map(m=>[String(m.id),m]));
+    for(const m of next.months||[])if(m&&m.id)monthMap.set(String(m.id),m);
+    const combined={months:[...monthMap.values()],
+      removed:Object.fromEntries(CASH.map(kind=>[kind,[...new Set([...(latest.removed[kind]||[]),...(next.removed?.[kind]||[])])]]))};
+    localStorage.setItem(STORE,JSON.stringify(combined));
+    local=combined;
+  }
   function create(data,name){
     const fresh=current(data);
     if(!KINDS.some(k=>fresh[k].length))throw Error('No new financial activity to save for this month.');
@@ -61,7 +76,8 @@
       captured:Object.fromEntries(KINDS.map(k=>[k,fresh[k].map(identity)])),
       entries:Object.fromEntries(KINDS.map(k=>[k,fresh[k].map(r=>{const copy={...r};delete copy.imageData;return copy})]))
     };
-    localPersist({...local,months:[...local.months,report]});
+    const latest=refreshLocal();
+    localPersist({...latest,months:[...latest.months,report]});
     return report;
   }
   function rename(id,name){
@@ -70,14 +86,16 @@
     const existing=all().find(m=>String(m.id)===String(id));
     if(!existing)throw Error('Month not found.');
     const replaced={...existing,name:nextName};
-    localPersist({...local,months:[...local.months.filter(m=>String(m.id)!==String(id)),replaced]});
+    const latest=refreshLocal();
+    localPersist({...latest,months:[...latest.months.filter(m=>String(m.id)!==String(id)),replaced]});
     return replaced;
   }
   function remove(kind,id){
     if(!CASH.includes(kind))throw Error('Only quick-entry expenses and money gained can be removed here.');
-    const next={...local,removed:{...local.removed,[kind]:[...new Set([...(local.removed[kind]||[]),String(id)])]}};
+    const latest=refreshLocal();
+    const next={...latest,removed:{...latest.removed,[kind]:[...new Set([...(latest.removed[kind]||[]),String(id)])]}};
     localPersist(next);
   }
   const setShared=list=>{shared=Array.isArray(list)?list:[]};
-  root.VendingMonths={all,current,visible,create,rename,remove,isArchived,identity,setShared,removed:()=>({...local.removed}),export:()=>({savedMonths:all(),removedEntryIds:{...local.removed}})};
+  root.VendingMonths={all,current,visible,create,rename,remove,isArchived,identity,setShared,removed:()=>({...refreshLocal().removed}),export:()=>({savedMonths:all(),removedEntryIds:{...local.removed}})};
 })(window);
