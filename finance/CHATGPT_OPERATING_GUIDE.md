@@ -68,6 +68,8 @@ Use unique stable IDs and numeric JSON amounts, not currency-formatted strings. 
 - Browser saved months and removals are NOT automatically synchronized to GitHub. Export Entries + Months includes local records, month snapshots and removed entry IDs. The user must upload an export in chat for a GitHub merge.
 - Saving a month also triggers a downloadable JSON backup of quick entries, saved month snapshots, and removal IDs. The export button on Monthly Expenses and Months can download another copy at any time.
 - Local browser storage can be cleared and downloaded files can be lost. For true cross-device durability, upload an export here for GitHub migration or use a secure backend. Do not promise absolute permanence without a verified backup.
+- Safeguards verified November 10, 2026: app.js re-reads the latest quick-entry storage before additions; months.js re-reads and merges saved months/removal markers before writes. Storage events update open tabs. An outage fetching GitHub data must not lock users out of browser-saved Months.
+- Closing a normal browser tab/restarting the same browser generally preserves localStorage. Private browsing, clearing site storage, device loss, browser privacy cleanup and quota failures can still lose records. Tests use a simulated browser storage environment, not access to the user's private live storage.
 - The top net bar and archived month net use ONLY money gained minus monthly expenses. Machine and receipt totals are separate and do not double-count.
 
 ## Legacy browser data migration
