@@ -11,9 +11,9 @@ ChatGPT manages the shared finance data in conversation. The browser is a displa
 - Do not modify other website sections when changing this board.
 
 ## User's change policy
-- Preserve all four display views: Home, Receipts, Machines, Funding.
+- Preserve all six display views: Home, Receipts, Machines, Funding, Monthly Expenses, Months.
 - Preserve existing data and features by default when adding new requested features. Removing data or existing features requires an explicit user request.
-- Preserve the two explicitly requested quick-entry forms for monthly expenses and money gained. Do not add other browser-side editing, delete, or uploads unless requested. The dashboard also supports read-only filters, an entry export button, and a legacy backup button.
+- Preserve the two quick-entry forms, the Activity remove controls for unsaved cash entries, the Save Month button, and the permanent Months archive. Do not add other browser-side editing or deletion unless requested. The dashboard also supports read-only filters, an entry export button, and a legacy backup button.
 - Keep original raw figures distinct from derived totals. Explain accounting assumptions and avoid double-counting.
 
 ## Data schema
@@ -27,7 +27,8 @@ The top-level JSON object must have:
   "machines": [],
   "funding": [],
   "monthlyExpenses": [],
-  "moneyGained": []
+  "moneyGained": [],
+  "savedMonths": []
 }
 ```
 Set `updatedAt` to a real ISO 8601 timestamp whenever intentionally updating financial data.
@@ -56,6 +57,17 @@ Use unique stable IDs and numeric JSON amounts, not currency-formatted strings. 
 - The new GitHub `finance/data.json` also supports both arrays as shared records. When an ID is present in both GitHub and the browser, the browser displays it once. If user exports local entries and asks ChatGPT to migrate, check by ID and avoid duplicates.
 - GitHub Pages has no authenticated write backend. Manual browser entries **do not sync across devices or automatically reach ChatGPT**. The Monthly Expenses tab includes an Export quick entries button for sharing a JSON file in chat; ChatGPT may merge it into GitHub after review.
 - Protect previous datasets and preserve browser localStorage. Do not claim local quick entries are synchronized remotely.
+
+## Monthly archive / lifetime total invariants
+- Monthly archive logic lives in finance/months.js. The browser stores month snapshots and removal tombstones under localStorage key vendingFinanceBoard.savedMonths.v1.
+- Home shows only CURRENT UNSAVED records; the top money bar is LIFETIME net: all visible money gained minus all visible expenses, including archived ones. Saving a month NEVER resets or subtracts the lifetime balance. New entries and deliberate removal of unsaved entries can still change the lifetime balance.
+- Save Month accepts a custom name, captures all current unsaved income, expenses, machine periods, receipts and funding, and stores a snapshot. It archives records by stable ID, so Home current totals and activity reset visually without deleting historical data.
+- The Months tab lists every saved month with gross gained, expenses, net, machine gross sales/costs/profit, receipts, funding and repayments and the included entries. Month names can change; archived snapshots may not be deleted.
+- Unsaved money gained and expenses can be removed from Home Activity; unsaved expenses can also be removed from Monthly Expenses. The removal updates the lifetime balance and is saved as a browser-local tombstone. Archived entries are protected.
+- finance/data.json supports savedMonths: []; when migrating exports, merge by ID and avoid duplicates.
+- Browser saved months and removals are NOT automatically synchronized to GitHub. Export Entries + Months includes local records, month snapshots and removed entry IDs. The user must upload an export in chat for a GitHub merge.
+- Local browser storage can be cleared; saved months need backup or shared synchronization for durability. Do not promise absolute permanence without it.
+- The top net bar and archived month net use ONLY money gained minus monthly expenses. Machine and receipt totals are separate and do not double-count.
 
 ## Legacy browser data migration
 The old version stored records only in the browser under `localStorage['vendingFinanceBoard.v2']`. Existing device-local data cannot be read by GitHub/ChatGPT remotely.
