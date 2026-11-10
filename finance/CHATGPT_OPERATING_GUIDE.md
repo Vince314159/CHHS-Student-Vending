@@ -1,7 +1,7 @@
 # ChatGPT Finance Board — Operating Guide
 
 This directory contains the finance display for CHHS Student-Run Vending.
-The user wants ChatGPT to manage the information in conversation; the browser is a **read-only display**, not a financial entry tool.
+ChatGPT manages the shared finance data in conversation. The browser is a display with **two explicitly requested local quick-entry forms** for Monthly Expenses and Money Gained.
 
 ## Source of truth
 - `finance/data.json` is the shared data file for all devices, read by `finance/app.js`.
@@ -13,7 +13,7 @@ The user wants ChatGPT to manage the information in conversation; the browser is
 ## User's change policy
 - Preserve all four display views: Home, Receipts, Machines, Funding.
 - Preserve existing data and features by default when adding new requested features. Removing data or existing features requires an explicit user request.
-- No browser-side editing, delete, uploads, or local data entry. The dashboard may have navigation, read-only filters and a one-time export button to recover old browser-only data.
+- Preserve the two explicitly requested quick-entry forms for monthly expenses and money gained. Do not add other browser-side editing, delete, or uploads unless requested. The dashboard also supports read-only filters, an entry export button, and a legacy backup button.
 - Keep original raw figures distinct from derived totals. Explain accounting assumptions and avoid double-counting.
 
 ## Data schema
@@ -25,7 +25,9 @@ The top-level JSON object must have:
   "currency": "USD",
   "receipts": [],
   "machines": [],
-  "funding": []
+  "funding": [],
+  "monthlyExpenses": [],
+  "moneyGained": []
 }
 ```
 Set `updatedAt` to a real ISO 8601 timestamp whenever intentionally updating financial data.
@@ -34,6 +36,8 @@ Existing supported row shapes, with optional fields omitted when unknown:
 - `receipts`: `{id, date:"YYYY-MM-DD", vendor, category, total, status:"reviewed"|"needs-review", notes}`.
 - `machines`: `{id, name, location, start:"YYYY-MM-DD", end:"YYYY-MM-DD", sales, refunds, cogs, processing, platform, commission, maintenance, other}`. One machine reporting period per record. Numeric fields represent USD.
 - `funding`: `{id, type:"funding"|"repayment", date:"YYYY-MM-DD", amount, source, notes}`.
+- `monthlyExpenses`: `{id, date:"YYYY-MM-DD", amount, note, createdAt}`.
+- `moneyGained`: `{id, date:"YYYY-MM-DD", amount, note, createdAt}`.
 
 Use unique stable IDs and numeric JSON amounts, not currency-formatted strings. Never invent dates, amounts, vendors, machine names, transactions, or funding sources. Avoid posting scans or personal financial data in the public repo.
 
@@ -44,6 +48,14 @@ Use unique stable IDs and numeric JSON amounts, not currency-formatted strings. 
 - Receipts total is displayed separately and is **not** automatically subtracted from machine operating profit, because receipt purchases may overlap with COGS or machine-period costs. This is not a full tax/accounting ledger.
 - Funding balance = funding contributions minus repayments, shown not below zero.
 - If no periods were recorded, $0 means no recorded financial data, not verified zero business activity.
+
+## Quick entry data and net money bar
+- Home offers two quick-entry forms. Each form accepts a positive USD amount and optional note; saving appends a dated record to `localStorage['vendingFinanceBoard.quickEntries.v1']` on that device.
+- Monthly Expenses groups individual expenses by month; entries are not deleted or overwritten when another is added.
+- The **net money bar** is sum of `moneyGained` minus sum of `monthlyExpenses`, across all recorded dates. Do not silently add machine-period sales or subtract receipt totals, which might overlap.
+- The new GitHub `finance/data.json` also supports both arrays as shared records. When an ID is present in both GitHub and the browser, the browser displays it once. If user exports local entries and asks ChatGPT to migrate, check by ID and avoid duplicates.
+- GitHub Pages has no authenticated write backend. Manual browser entries **do not sync across devices or automatically reach ChatGPT**. The Monthly Expenses tab includes an Export quick entries button for sharing a JSON file in chat; ChatGPT may merge it into GitHub after review.
+- Protect previous datasets and preserve browser localStorage. Do not claim local quick entries are synchronized remotely.
 
 ## Legacy browser data migration
 The old version stored records only in the browser under `localStorage['vendingFinanceBoard.v2']`. Existing device-local data cannot be read by GitHub/ChatGPT remotely.
