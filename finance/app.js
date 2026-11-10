@@ -160,10 +160,22 @@ document.addEventListener('submit',e=>{
   const d=new FormData(form),amount=Math.round(Number(d.get('amount'))*100)/100;
   if(!Number.isFinite(amount)||amount<=0||amount>999999999){alert('Enter an amount greater than $0.');return}
   const entry={id:uniqueId(),date:localDate(),amount,note:String(d.get('note')||'').trim().slice(0,100),createdAt:new Date().toISOString()};
-  const newer={monthlyExpenses:[...quick.monthlyExpenses],moneyGained:[...quick.moneyGained]};
+  // Re-read storage before appending; otherwise two open tabs can overwrite
+  // the newest entries from each other.
+  let disk={monthlyExpenses:[],moneyGained:[]};
+  try{
+    const raw=JSON.parse(localStorage.getItem(QUICK_KEY)||'{}');
+    for(const k of ['monthlyExpenses','moneyGained'])if(Array.isArray(raw[k]))disk[k]=raw[k];
+  }catch{/* Fall back to the data already loaded into this page. */}
+  const newer={};
+  for(const k of ['monthlyExpenses','moneyGained']){
+    const byId=new Map();
+    for(const row of [...disk[k],...quick[k]])byId.set(periods.identity(row),row);
+    newer[k]=[...byId.values()];
+  }
   newer[key].push(entry);
   try{localStorage.setItem(QUICK_KEY,JSON.stringify(newer))}catch{alert('Could not save on this device. Check browser storage settings.');return}
-  quick[key]=newer[key];
+  for(const k of ['monthlyExpenses','moneyGained'])quick[k]=newer[k];
   state=combineQuick(state);
   render();
   notice('Entry saved in this browser. Review Activity or save this month; export history to share with ChatGPT.','warning',recordCount(legacy)>0);
@@ -220,6 +232,20 @@ document.addEventListener('click',event=>{
  }
 });
 
+// Another tab may add entries or save a month. Refresh this view when that
+// browser-local data changes; never erase the user's unsaved data.
+window.addEventListener('storage',event=>{
+  if(event.key===QUICK_KEY){
+    try{
+      const raw=JSON.parse(localStorage.getItem(QUICK_KEY)||'{}');
+      for(const kind of ['monthlyExpenses','moneyGained'])quick[kind]=Array.isArray(raw[kind])?raw[kind]:quick[kind];
+      state=combineQuick(state);
+      render();
+    }catch{/* Do not wipe records if a value is temporarily unreadable. */}
+  }else if(event.key==='vendingFinanceBoard.savedMonths.v1'){
+    render();
+  }
+});
 async function init(){
   notice('Loading financial records from GitHub…');
   try{
@@ -243,9 +269,9 @@ async function init(){
     }
     render();
   }catch(error){
-    if(recordCount(legacy)>0||recordCount(quick)>0){
+    if(recordCount(legacy)>0||recordCount(quick)>0||periods.all().length>0){
       state=combineQuick(recordCount(legacy)>0?legacy:empty);
-      notice('GitHub records could not be loaded. Showing only records saved in this browser; totals may be incomplete.','warning',recordCount(legacy)>0);
+      notice('GitHub records could not be loaded. Browser-saved entries and months remain accessible, but totals may be incomplete until GitHub reconnects.','warning',recordCount(legacy)>0);
       render();
     }else{
       notice('Unable to load finance data from GitHub. Refresh the page to retry; no financial totals are being shown.','error');
