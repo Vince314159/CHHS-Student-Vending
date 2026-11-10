@@ -66,7 +66,8 @@ Use unique stable IDs and numeric JSON amounts, not currency-formatted strings. 
 - Unsaved money gained and expenses can be removed from Home Activity; unsaved expenses can also be removed from Monthly Expenses. The removal updates the lifetime balance and is saved as a browser-local tombstone. Archived entries are protected.
 - finance/data.json supports savedMonths: []; when migrating exports, merge by ID and avoid duplicates.
 - Browser saved months and removals are NOT automatically synchronized to GitHub. Export Entries + Months includes local records, month snapshots and removed entry IDs. The user must upload an export in chat for a GitHub merge.
-- Local browser storage can be cleared; saved months need backup or shared synchronization for durability. Do not promise absolute permanence without it.
+- Saving a month also triggers a downloadable JSON backup of quick entries, saved month snapshots, and removal IDs. The export button on Monthly Expenses and Months can download another copy at any time.
+- Local browser storage can be cleared and downloaded files can be lost. For true cross-device durability, upload an export here for GitHub migration or use a secure backend. Do not promise absolute permanence without a verified backup.
 - The top net bar and archived month net use ONLY money gained minus monthly expenses. Machine and receipt totals are separate and do not double-count.
 
 ## Legacy browser data migration
